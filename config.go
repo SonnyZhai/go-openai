@@ -62,6 +62,22 @@ func DefaultConfig(authToken string) ClientConfig {
 	}
 }
 
+// DefaultCompatibleConfig returns a ClientConfig that is compatible with the OpenAI API.
+func DefaultCompatibleConfig(authToken string, BaseUrl string) ClientConfig {
+	if BaseUrl == "" {
+		BaseUrl = openaiAPIURLv1
+	}
+
+	return ClientConfig{
+		authToken: authToken,
+		BaseURL:   BaseUrl,
+
+		HTTPClient: &http.Client{},
+
+		EmptyMessagesLimit: defaultEmptyMessagesLimit,
+	}
+}
+
 func DefaultAzureConfig(apiKey, baseURL string) ClientConfig {
 	return ClientConfig{
 		authToken:  apiKey,
